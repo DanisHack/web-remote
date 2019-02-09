@@ -1,7 +1,7 @@
 // Global variables
 var $socket = null;
 var $remotePeer = null;
-$serverUrl = 'https://browsercast-messaging-broker.herokuapp.com/';
+$serverUrl = 'https://browsercast-messaging-broker.herokuapp.com';
 
 // Handle the commands from the extension
 function actionHandler(data) {
