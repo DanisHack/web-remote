@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Bootstrap library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/css/bootstrap.min.css" />
+    <!-- Custom style -->
+    <link rel="stylesheet" href="css/remote.css"
+    <!-- Set viewport 1 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div style="max-width:500px; margin: 0 auto" class="container mt-3">
+        <div id="panelSection" class="hidden">
+            <!-- Open new tab section -->
+            <label for="basic-url">Youtube Video URL</label>
+            <div class="input-group mb-3">
+            <!-- Youtube url input -->
+                <input id="urlInput" type="text" class="form-control" placeholder="Enter your youtube URL">
+            </div>
+            <!-- Open new tab button -->
+            <button id="newTabButton" type="button" class="btn btn-primary btn-lg btn-block">Open New Tab</button>
+            <!-- Current tab section -->
+            <div id="activeTab" class="mt-3 text-center">You must select a video tab first</div>
+            <!-- Play video button -->
+            <button id="playButton" type="button" class="btn btn-secondary btn-lg btn-block" disabled>Play Video</button>
+            <!-- Opened tabs list -->
+            <div class="mt-5 mb-3">Active video tabs</div>
+            <!-- Opened tabs list -->
+            <div id="openedTabsList"></div>
+            <!-- Disconnect button -->
+            <div>
+                <button id="disconnectButton" class="btn btn-danger btn-sm mt-4">Disconnect</button>
+            </div>
+        </div>
+        <div id="connectSection">
+            <label for="basic-url">Enter Connection Code</label>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="btn btn-outline-primary qrcode-text-btn">
+                        Scan <input id="scanButton" type=file accept="image/*" capture=environment tabindex=-1>                         
+                    </label>
+                </div>
+                <input id="connectInput" type="text" class="form-control" placeholder="Enter code here">
+                <div class="input-group-append">
+                    <button id="connectButton" class="btn btn-primary" type="button">Connect</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<!-- jQuery library -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<!-- Bootstrap JavaScript library -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script type="text/javascript" src="js/simplepeer.min.js"></script>
+<script type="text/javascript" src="js/socket.io.slim.js"></script>
+<!-- Include our remote.js file -->
+<script type="text/javascript" src="js/remote.js"></script>
+<!-- Include our remote.js file -->
+<script type="text/javascript" src="js/gateway.js"></script>
+<!-- QR Code Scan Library -->
+<script src="https://rawgit.com/sitepoint-editors/jsqrcode/master/src/qr_packed.js"></script>
+</html>
