@@ -56,6 +56,7 @@ function updateTabs(list) {
     Array.from(container.getElementsByClassName("focusTabButton")).forEach(element => {
         // Add event listeners for "focus" buttons
         element.addEventListener("click", function(params) {
+            this.blur();
             var tabID = this.getAttribute("data-tabID");
             
             // Send command to change the tab
@@ -132,17 +133,7 @@ document.getElementById("playButton").addEventListener("click", function(params)
 
 // Add event listener to "New tab" button
 document.getElementById("newTabButton").addEventListener("click", function(params) {
-    // Math the domain
-    var urlInput = document.getElementById("urlInput");
-    var matches = urlInput.value.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
-    var domain = matches && matches[1];
-
-    // Check if domain is valid
-    if (domain == "www.youtube.com" || domain == "youtu.be" || domain == "www.youtu.be") {
-        newTab(urlInput.value);
-    } else {
-        alert("Your video URL appears to be invalid");
-    }
+    newTab(urlInput.value);
 });
 
 // Add event listener for "scan" button
