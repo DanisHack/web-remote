@@ -30,6 +30,8 @@ function updateTabs(list) {
                 document.getElementById("playButton").disabled = element == null ? true : false;
                 // Show/hide error message
                 document.getElementById("activeTab").innerHTML = element == null ? "You must select a video tab first" : "<b>" + element.title + "</b>";  
+                // Enable/Disable rewind buttons
+                element == null ? enableRewindButtons(false) : enableRewindButtons(true);  
             }
 
             // Add the tabs to the local list
@@ -76,6 +78,8 @@ function setCurrentTabID(id) {
     document.getElementById("playButton").disabled = tab == null ? true : false;
     // Show/hide error message
     document.getElementById("activeTab").innerHTML = tab == null ? "You must select a video tab first" : "<b>" + tab.title + "</b>";  
+    // Enable/Disable rewind buttons
+    tab == null ? enableRewindButtons(false) : enableRewindButtons(true);  
 }
 
 // Change the UI when the audible has changed (sound)
@@ -84,6 +88,15 @@ function setAudibleChanged(id, audible) {
 
     // Change Play button text
     document.getElementById("playButton").innerHTML = tab != null && audible ? "Pause Video" : "Play Video";
+}
+
+// Enable/Disable seek buttons
+function enableRewindButtons(enabled) {
+    document.getElementById("rewind1").disabled 
+    = document.getElementById("rewind2").disabled
+    = document.getElementById("forward1").disabled
+    = document.getElementById("forward2").disabled 
+    = !enabled;
 }
 
 // Open and process QR Code image
@@ -157,4 +170,24 @@ document.getElementById("connectButton").addEventListener("click", function() {
 document.getElementById("disconnectButton").addEventListener("click", function() {
     // Disconnect the user
     disconnect();
+});
+
+// Rewind video 1
+document.getElementById("rewind1").addEventListener("click", function() {
+    seekVideo($currentTabID, -60);
+});
+
+// Rewind video 2
+document.getElementById("rewind2").addEventListener("click", function() {
+    seekVideo($currentTabID, -180);
+});
+
+// Forward video 1
+document.getElementById("forward1").addEventListener("click", function() {
+    seekVideo($currentTabID, 60);
+});
+
+// Forward video 2
+document.getElementById("forward2").addEventListener("click", function() {
+    seekVideo($currentTabID, 180);
 });

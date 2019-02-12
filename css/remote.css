@@ -24,6 +24,10 @@
   background-color:red;
 }
 
+.quarter-width-button {
+    width: 24.25%;
+}
+
 .hidden {
     display: none;
 }

@@ -40,13 +40,11 @@ function connect(peerID) {
 
     // Trigger when the connection was made
     $socket.on('connect', function() {
-        console.log("connected");
         $socket.emit('join', { id : peerID });
     });
 
     // Trigger when another user joined
     $socket.on('join', (data) => {
-        console.log("successfully connected", data)
         connectionStarted()
     });
 
@@ -112,5 +110,10 @@ function playTab(id) {
 // Open a new tab
 function newTab(url) {
     sendCommand({ cmd: "newTab", params: { url : url } });
+}
+
+// Seek video 
+function seekVideo(id, seconds) {
+    sendCommand({ cmd: "seekVideo", params: { id : id, seconds : seconds } });
 }
 

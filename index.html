@@ -4,7 +4,7 @@
     <!-- Bootstrap library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/css/bootstrap.min.css" />
     <!-- Custom style -->
-    <link rel="stylesheet" href="css/remote.css"
+    <link rel="stylesheet" href="css/remote.css">
     <!-- Set viewport 1 -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -23,7 +23,12 @@
             <!-- Current tab section -->
             <div id="activeTab" class="mt-3 text-center">You must select a video tab first</div>
             <!-- Play video button -->
-            <button id="playButton" type="button" class="btn btn-secondary btn-lg btn-block" disabled>Play Video</button>
+            <button id="playButton" type="button" class="btn btn-secondary btn-lg btn-block mb-2" disabled>Play Video</button>
+            <!-- Seek buttons -->
+            <button id="rewind2" type="button" class="btn btn-secondary btn-lg quarter-width-button" disabled><< 3m</button>
+            <button id="rewind1" type="button" class="btn btn-secondary btn-lg quarter-width-button" disabled><< 1m</button>
+            <button id="forward1" type="button" class="btn btn-secondary btn-lg quarter-width-button" disabled>1m >></button>
+            <button id="forward2" type="button" class="btn btn-secondary btn-lg quarter-width-button" disabled>3m >></3m></button>
             <!-- Opened tabs list -->
             <div class="mt-5 mb-3">Active video tabs</div>
             <!-- Opened tabs list -->
