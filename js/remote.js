@@ -1,6 +1,10 @@
 // Global variables
 $currentTabID = -1;
 $tabsList = [];
+var provider = new firebase.auth.GoogleAuthProvider();
+
+// Initialize
+initializeFirebase();
 
 // Update the tabs 
 function updateTabs(list) {
@@ -136,6 +140,41 @@ function getTabById(id) {
 
     return tab;
 }
+
+// Initialize Firebase
+function initializeFirebase() {
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyDn-CWzNRnQM5TvjKMIiho_zwpFivRaBNQ",
+        authDomain: "browsercast-1550137004565.firebaseapp.com",
+        databaseURL: "https://browsercast-1550137004565.firebaseio.com",
+        projectId: "browsercast-1550137004565",
+        storageBucket: "browsercast-1550137004565.appspot.com",
+        messagingSenderId: "209745942759"
+    };
+    firebase.initializeApp(config);
+}
+
+// Connect with Google
+function connectGoogle() {
+    firebase.auth().signInWithPopup(provider).then(function(result) {
+        // Signed in (handled by onAuthStateChanged)
+    }).catch(function(error) {
+        // Error occurred
+        console.log(error);
+    });
+}
+
+// Login status changed
+firebase.auth().onAuthStateChanged(function(user) {
+    console.log("status changed", user)
+    if (user != undefined) {
+        connect(undefined, user.uid);
+    }
+});
+
+// Add event listener for Google connect button
+document.getElementById("googleButton").addEventListener("click", connectGoogle);
 
 // Add event listener to "Play" button
 document.getElementById("playButton").addEventListener("click", function(params) {

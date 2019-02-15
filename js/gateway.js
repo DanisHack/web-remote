@@ -1,7 +1,7 @@
 // Global variables
 var $socket = null;
 var $remotePeer = null;
-$serverUrl = 'https://browsercast-messaging-broker.herokuapp.com';
+var $serverUrl = 'https://browsercast-messaging-broker.herokuapp.com';
 
 // Handle the commands from the extension
 function actionHandler(data) {
@@ -31,16 +31,29 @@ function sendCommand(payload) {
 }
 
 // Connect the extension to the socket server
-function connect(peerID) {
+function connect(peerID, google) {
     // Set remote peer id
     $remotePeer = peerID;
 
     // Open socket
     $socket = io($serverUrl);
 
+    // Trigger when peer id received
+    $socket.on('peer-id-social', function(id) {
+        //$socket.emit('joined-id-social-check', "hyQwvnvqFgNDkhZMtPBoWHzGIB53");
+        console.log("peer id social", id)
+        $socket.emit('join', { id : id });
+        $remotePeer = id;
+    });
+
     // Trigger when the connection was made
     $socket.on('connect', function() {
-        $socket.emit('join', { id : peerID });
+        if (google != undefined) {
+            $socket.emit('joined-id-social-check', google);
+        } else {
+            $socket.emit('join', { id : peerID });
+        }
+        
     });
 
     // Trigger when another user joined
@@ -88,6 +101,7 @@ function connectionEnded() {
 
 // Disconnect from server
 function disconnect() {
+    firebase.auth().signOut();
     $socket.disconnect();
     connectionEnded();
 }
