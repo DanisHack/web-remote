@@ -24,8 +24,25 @@
   background-color:red;
 }
 
+.slider-selection {
+	background: #BABABA;
+}
+
+.volume-slider {
+    text-align: right;
+    margin-right: 20px;
+}
+
 .quarter-width-button {
     width: 24.25%;
+}
+
+.width-75 {
+    width: 74.75%
+}
+
+.width-25 {
+    width: 24.2%;
 }
 
 .hidden {

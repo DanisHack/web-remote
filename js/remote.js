@@ -1,10 +1,12 @@
 // Global variables
 $currentTabID = -1;
 $tabsList = [];
+var slider = null;
 var provider = new firebase.auth.GoogleAuthProvider();
 
 // Initialize
 initializeFirebase();
+initializeVolumeSlider();
 
 // Update the tabs 
 function updateTabs(list) {
@@ -96,11 +98,45 @@ function setAudibleChanged(id, audible) {
 
 // Enable/Disable seek buttons
 function enableRewindButtons(enabled) {
+    // Rewind buttons
     document.getElementById("rewind1").disabled 
     = document.getElementById("rewind2").disabled
     = document.getElementById("forward1").disabled
     = document.getElementById("forward2").disabled 
     = !enabled;
+
+    // Volume buttons
+    document.getElementById("volumeButton").disabled = !enabled;
+}
+
+// Initialize volume
+function initializeVolumeSlider() {
+    slider = new Slider('#volumeSlider');
+
+    slider.on("slideStop", function (params) {
+        changeVolume($currentTabID, parseInt(params) / 100);
+    })
+}
+
+// Show volume
+function showVolume() {
+    document.getElementById("playButton").style.display = "none";
+    document.getElementById("volumeContainer").style.display = "block";
+}
+
+// Hide volume
+function hideVolume() {
+    document.getElementById("playButton").style.display = "block";
+    document.getElementById("volumeContainer").style.display = "none";
+}
+
+// Volume button click
+function toggleVolume() {
+    if (document.getElementById("playButton").style.display == "none") {
+        hideVolume();
+    } else {
+        showVolume();
+    }
 }
 
 // Open and process QR Code image
@@ -167,11 +203,13 @@ function connectGoogle() {
 
 // Login status changed
 firebase.auth().onAuthStateChanged(function(user) {
-    console.log("status changed", user)
     if (user != undefined) {
         connect(undefined, user.uid);
     }
 });
+
+// Add event listener for volume buttons
+document.getElementById("volumeButton").addEventListener("click", toggleVolume);
 
 // Add event listener for Google connect button
 document.getElementById("googleButton").addEventListener("click", connectGoogle);

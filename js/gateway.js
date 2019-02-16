@@ -40,8 +40,6 @@ function connect(peerID, google) {
 
     // Trigger when peer id received
     $socket.on('peer-id-social', function(id) {
-        //$socket.emit('joined-id-social-check', "hyQwvnvqFgNDkhZMtPBoWHzGIB53");
-        console.log("peer id social", id)
         $socket.emit('join', { id : id });
         $remotePeer = id;
     });
@@ -129,5 +127,10 @@ function newTab(url) {
 // Seek video 
 function seekVideo(id, seconds) {
     sendCommand({ cmd: "seekVideo", params: { id : id, seconds : seconds } });
+}
+
+// Change volume
+function changeVolume(id, volume) {
+    sendCommand({ cmd: "changeVolume", params: { id : id, volume : volume } });
 }
 
