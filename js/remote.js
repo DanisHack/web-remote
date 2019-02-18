@@ -106,7 +106,7 @@ function enableRewindButtons(enabled) {
     = !enabled;
 
     // Volume buttons
-    document.getElementById("volumeButton").disabled = !enabled;
+    //document.getElementById("volumeButton").disabled = !enabled;
 }
 
 // Initialize volume
@@ -209,7 +209,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 });
 
 // Add event listener for volume buttons
-document.getElementById("volumeButton").addEventListener("click", toggleVolume);
+//document.getElementById("volumeButton").addEventListener("click", toggleVolume);
 
 // Add event listener for Google connect button
 document.getElementById("googleButton").addEventListener("click", connectGoogle);
