@@ -33,6 +33,13 @@
     margin-right: 20px;
 }
 
+#sliderContainer{
+    height: 50px;
+}
+
+#seekContainer{
+}
+
 .quarter-width-button {
     width: 24.25%;
 }
