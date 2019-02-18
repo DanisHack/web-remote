@@ -33,15 +33,28 @@
     margin-right: 20px;
 }
 
+.slider.slider-horizontal {
+    width: 190px;
+    height: 20px;
+}
+
 #sliderContainer{
     height: 50px;
+}
+
+#playButton{
+    float: left;
+}
+
+#volumeContainer{
+    float: right;
 }
 
 #seekContainer{
 }
 
 .quarter-width-button {
-    width: 24.25%;
+    width: 23.25%;
 }
 
 .width-75 {
