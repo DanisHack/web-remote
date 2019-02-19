@@ -9,9 +9,11 @@ initializeFirebase();
 initializeVolumeSlider();
 
 // Update the tabs 
-function updateTabs(list) {
+function updateTabs(list, iframes) {
     var container = document.getElementById("openedTabsList");
+    var iframesContainer = document.getElementById("iframesList");
     var html = "";
+    var htmlIframe = "";
     $tabsList = [];
 
     if (list.length > 0) {
@@ -48,8 +50,30 @@ function updateTabs(list) {
         html += `<div>You have no video tabs</div>`;
     }
 
+    if (iframes.length > 0) {
+        htmlIframe += `<div class="mt-5 mb-3">Active tabs with iframes</div>`;
+
+        // If the list of iframes contains at least 1 iframe, display it
+        for (var item in iframes) {
+            var element = iframes[item];
+            var value = "width: " + element.width + " height: " + element.height + " \n" + element.source;
+
+            // Display each tab 
+            htmlIframe += `<div class="input-group mb-3">
+                                <textarea type="text" class="form-control iframe-textarea" readonly>` + value + `</textarea>
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary iframeButton" type="button" data-src="` + element.source + `">+</button>
+                                </div>
+                            </div>`;
+        }
+    } else {
+        // Display a default message when there is no video tab
+        htmlIframe += `<div>You have no iframe tabs</div>`;
+    }
+
     // Apply the changes
     container.innerHTML = html;
+    iframesContainer.innerHTML = htmlIframe;
 
     Array.from(container.getElementsByClassName("closeTabButton")).forEach(element => {
         // Add event listeners for "close" buttons
@@ -70,7 +94,17 @@ function updateTabs(list) {
             // Send command to change the tab
             changeTab(tabID);
         });
-    })
+    });
+
+    Array.from(iframesContainer.getElementsByClassName("iframeButton")).forEach(element => {
+        // Add event listeners for "new tab from iframe" buttons
+        element.addEventListener("click", function(params) {
+            this.blur();
+            var source = this.getAttribute("data-src");
+            
+            newTab(source);
+        });
+    });
 }
 
 // Change the UI when the tab has changed

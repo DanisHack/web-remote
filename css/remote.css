@@ -57,6 +57,10 @@
     width: 23.25%;
 }
 
+.iframe-textarea {
+    height: 62px !important;
+}
+
 .width-75 {
     width: 74.75%
 }
