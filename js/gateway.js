@@ -5,11 +5,10 @@ var $serverUrl = 'https://browsercast-messaging-broker.herokuapp.com';
 
 // Handle the commands from the extension
 function actionHandler(data) {
-    console.log(data)
     switch (data.payload.cmd) {
         // Update list of tabs 
         case "tabsListUpdate":
-            updateTabs(data.payload.params.tabsList);
+            updateTabs(data.payload.params.tabsList, data.payload.params.iframesList);
             break;
         // Change current tab
         case "currentTabUpdate":
