@@ -173,6 +173,33 @@ function toggleVolume() {
     }
 }
 
+// Update list of peers
+function updateListOfPeers(peers) {
+    console.log("update peers", peers)
+    var container = document.getElementById("devices");
+    var html = ``;
+
+    if (peers.length > 0) {
+        for (let i = 0; i < peers.length; i++) {
+            const element = peers[i];
+            html += `<button class="peerConnectButton btn btn-success btn-block mb-3" type="button" data-peerId="${element.peerId}">${element.osName}</button>`;        
+        }
+
+        container.innerHTML = html;
+
+        Array.from(container.getElementsByClassName("peerConnectButton")).forEach(element => {
+            element.addEventListener("click", function (params) {
+                var peerId = element.getAttribute("data-peerId");
+                console.log(peerId)
+                connectToPeer(peerId);
+            })
+        });
+    } else {
+        // No peers 
+        container.innerHTML = "You have no devices connected";
+    }
+}
+
 // Open and process QR Code image
 function openQRCamera(node, elementID) {
     var reader = new FileReader();
@@ -235,10 +262,22 @@ function connectGoogle() {
     });
 }
 
+function disconnectGoogle() {
+    firebase.auth().signOut().then(function(result) {
+        disconnectSocket();
+    }).catch(function(error) {
+        // Error occurred
+        console.log(error);
+    });
+}
+
 // Login status changed
 firebase.auth().onAuthStateChanged(function(user) {
     if (user != undefined) {
+        socialConnectionStarted(user);
         connect(undefined, user.uid);
+    } else {
+        socialConnectionEnded();
     }
 });
 

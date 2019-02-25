@@ -51,6 +51,7 @@
             </div>
         </div>
         <div id="connectSection">
+            <!-- QR Code -->
             <label for="basic-url">Enter Connection Code</label>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -63,11 +64,15 @@
                     <button id="connectButton" class="btn btn-primary" type="button">Connect</button>
                 </div>
             </div>
-            <div class="input-group mb-3">
+            <!-- Connect with Google -->
+            <div class="input-group mb-4">
                 <div>
-                    <button id="googleButton" class="btn btn-primary btn-block" type="button">Connect with Google</button>
+                    <span id="googleStatus"></span>
+                    <button id="googleButton" class="btn btn-primary" type="button">Connect with Google</button>
                 </div>
             </div>
+            <!-- Show devices -->
+            <div id="devices" class="input-group"></div>
         </div>
     </div>
 </body>
