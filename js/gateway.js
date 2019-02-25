@@ -2,7 +2,7 @@
 var $socket = null;
 var $remotePeer = null;
 var $googleId = null;
-var $serverUrl = 'https://browsercast-messaging-broker.herokuapp.com';
+var $serverUrl = 'https://video-pc-app.herokuapp.com';
 
 // Handle the commands from the extension
 function actionHandler(data) {
