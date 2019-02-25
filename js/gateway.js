@@ -1,6 +1,7 @@
 // Global variables
 var $socket = null;
 var $remotePeer = null;
+var $googleId = null;
 var $serverUrl = 'https://browsercast-messaging-broker.herokuapp.com';
 
 // Handle the commands from the extension
@@ -38,9 +39,8 @@ function connect(peerID, google) {
     $socket = io($serverUrl);
 
     // Trigger when peer id received
-    $socket.on('peer-id-social', function(id) {
-        $socket.emit('join', { id : id });
-        $remotePeer = id;
+    $socket.on('peer-id-social', function(peers) {
+        updateListOfPeers(peers);
     });
 
     // Trigger when the connection was made
@@ -50,7 +50,6 @@ function connect(peerID, google) {
         } else {
             $socket.emit('join', { id : peerID });
         }
-        
     });
 
     // Trigger when another user joined
@@ -69,6 +68,43 @@ function connect(peerID, google) {
         // Handle the command
         connectionEnded();
     });
+}
+
+// Disconnect from socket
+function disconnectSocket() {
+    $socket.close();
+}
+
+// Connect to device
+function connectToPeer(peerId) {
+    $socket.emit('join', { id : peerId });
+    $remotePeer = peerId;
+}
+
+// Social user signed in
+function socialConnectionStarted(user) {
+    var socialButton = document.getElementById("googleButton");
+    var googleButtonContainer = document.getElementById("googleStatus");
+
+    socialButton.innerHTML = "Logout";
+    googleButtonContainer.innerHTML = `Connected as ${user.displayName} `; 
+
+    document.getElementById("googleButton").removeEventListener("click", connectGoogle);
+    document.getElementById("googleButton").addEventListener("click", disconnectGoogle);
+}
+
+// Social user signed out
+function socialConnectionEnded() {
+    var socialButton = document.getElementById("googleButton");
+    var googleButtonContainer = document.getElementById("googleStatus");
+    var devices = document.getElementById("devices");
+
+    socialButton.innerHTML = "Connect with Google";
+    googleButtonContainer.innerHTML = ""; 
+    devices.innerHTML ="";
+
+    document.getElementById("googleButton").addEventListener("click", connectGoogle);
+    document.getElementById("googleButton").removeEventListener("click", disconnectGoogle);
 }
 
 // Trigger when connection started
